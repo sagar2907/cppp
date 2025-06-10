@@ -2616,47 +2616,7 @@ class heap{
             else return;
         }
     }
-};
-void heapify(int* arr,int size,int i){
-    int curr=i;
-    int left=2*i;
-    int right = 2*i+1;
-    if(left<=size && arr[curr]<arr[left] ){
-        curr=left;
-    }
-    if(right<=size && arr[curr]<arr[right]){
-        curr=right;
-    }
-    if(curr!=i){
-        swap(arr[curr],arr[i]);
-        heapify(arr,size,curr);
-    }
-}
-
-
-int main(){
-    queue<int> q;
-    vector<int> arr;
-    string s="blybjrzbbyivawvdesebvusjnijimtzkuzdtfkpkpuyjynzxmapwzvrxpluuzbftozbqedqwtlvvnexfvualb";
-    arr.push_back(-8);
-    arr.push_back(2);
-    arr.push_back(3);
-    arr.push_back(-6);
-    arr.push_back(-10);
-    q.push(-8);
-    q.push(2);
-    q.push(3);
-    q.push(-6);
-    q.push(5);
-    /*if(!q.front()){
-            cout<<endl;
-            if(!q.empty()){
-                q.push(NULL);
-            }
-        }*/
-
-    vector<int> p={6,7,4,10,6,5};
-    vector<int> d={5,6,7,8,6,4};
+    /*
     heap h;
     h.insert(50);
     h.insert(55);
@@ -2674,5 +2634,54 @@ int main(){
     for(int i=1;i<=size;i++){
         cout<<brr[i]<<" ";
     }
+    heapsort(brr,size);
+    cout<<endl;
+    for(int i=1;i<=size;i++){
+        cout<<brr[i]<<" ";
+    }
+        */
+};
+void heapify(int* arr,int size,int i){
+    int curr=i;
+    int left=2*i;
+    int right = 2*i+1;
+    if(left<=size && arr[curr]<arr[left] ){
+        curr=left;
+    }
+    if(right<=size && arr[curr]<arr[right]){
+        curr=right;
+    }
+    if(curr!=i){
+        swap(arr[curr],arr[i]);
+        heapify(arr,size,curr);
+    }
+}
+void heapsort(int* arr,int size){
+    if(size==1){
+        return;
+    }
+    swap(arr[1],arr[size]);
+    size--;
+    heapify(arr,size,1);
+    heapsort(arr,size);
+}
+int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int,vector<int>,greater<int>> qp;
+        for(int i=0;i<k;i++){
+            qp.push(nums[i]);
+        }
+        for(int i=k;i<nums.size();i++){
+            if(qp.top()<nums[i]){
+                qp.pop();
+                qp.push(nums[i]);
+            }
+        }
+        return qp.top();
+}
+
+int main(){
+    
+    priority_queue<int,vector<int>,greater<int>> qp;
+    
 
 }
