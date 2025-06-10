@@ -2617,6 +2617,21 @@ class heap{
         }
     }
 };
+void heapify(int* arr,int size,int i){
+    int curr=i;
+    int left=2*i;
+    int right = 2*i+1;
+    if(left<=size && arr[curr]<arr[left] ){
+        curr=left;
+    }
+    if(right<=size && arr[curr]<arr[right]){
+        curr=right;
+    }
+    if(curr!=i){
+        swap(arr[curr],arr[i]);
+        heapify(arr,size,curr);
+    }
+}
 
 
 int main(){
@@ -2651,6 +2666,13 @@ int main(){
     h.print();
     h.deleteroot();
     h.print();
-
+    int brr[6]={-1,54,53,55,52,50};
+    int size=5;
+    for(int i=size/2;i>0;i--){
+        heapify(brr,size,i);
+    }
+    for(int i=1;i<=size;i++){
+        cout<<brr[i]<<" ";
+    }
 
 }
