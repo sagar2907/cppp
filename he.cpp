@@ -2374,6 +2374,14 @@ BT* binarytree(BT* &root){
     return root;
 
 }
+void numnodes(BT* root,int &count){
+    if(!root){
+        count++;
+        return;
+    }
+    numnodes(root->left,count);
+    numnodes(root->right,count);
+}
 void levelOrderTraverse(BT* root){
     queue<BT*> q;
     q.push(root);
@@ -2678,10 +2686,35 @@ int findKthLargest(vector<int>& nums, int k) {
         }
         return qp.top();
 }
+bool CBT(BT* root,int n){
+    queue<BT*> q;
+    q.push(root);
+    int i=0;
+    while(!q.empty()){
+        BT* temp=q.front();
+        q.pop();
+        if(temp->left!=NULL && temp->right!=NULL){
+            i++;
+            q.push(temp->left);
+            q.push(temp->right);
+        }
+        else if(temp->left!=NULL && temp->right==NULL){
+            i++;
+            if(i==n/2){
+                return 1;
+            }
+        }
+        else return 0;
+    }
+}
 
 int main(){
-    
-    priority_queue<int,vector<int>,greater<int>> qp;
-    
+    // 1 2 -1 -1 3 -1 -1
+   BT* root=binarytree(root);
+   int count=0;
+   numnodes(root,count);
+   int n=count-1;
+   cout<< "1 for cbt and 0 for not cbt: "<<CBT(root,n);
+
 
 }
