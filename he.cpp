@@ -2714,6 +2714,31 @@ bool CBT(BT* root,int n){
     }
     return 0;
 }
+int kthlargestsumsubarray(vector<int> arr,int k){
+    // we can do it without creating a new vector;
+    int n=arr.size();
+    vector<int> sum;
+    for(int i=0;i<n;i++){
+        int s=0;
+        for(int j=i;j<n;j++){
+            s +=arr[j];
+            sum.push_back(s);
+        }
+    }
+    priority_queue<int,vector<int>,greater<int>> pq;
+    for(int i=0;i<k;i++){
+        pq.push(sum[i]);
+    }
+    for(int i=k;k<sum.size();i++){
+        if(pq.top()<sum[i]){
+            pq.pop();
+            pq.push(sum[i]);
+        }
+    }
+    return pq.top();
+}
+
+
 
 int main(){
     // 1 2 -1 -1 3 -1 -1
