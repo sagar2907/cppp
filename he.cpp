@@ -2737,6 +2737,42 @@ int kthlargestsumsubarray(vector<int> arr,int k){
     }
     return pq.top();
 }
+class index2{
+    public:
+    int data;
+    int row;
+    int col;
+    index2(int data,int row,int col){
+        this->data=data;
+        this->row=row;
+        this->col=col;
+    }
+};
+class nodecompare{
+    public:
+    bool operator()(index2* a,index2* b){
+        return a->data > b->data;
+    }
+};
+vector<int> mergeKSortedArr(vector<vector<int>> arr,int k){
+    priority_queue<index2*, vector<index2*>,nodecompare> pq;
+    for(int i=0;i<k;i++){
+        index2* temp=new index2(arr[i][0],i,0);
+        pq.push(temp);
+    }
+    vector<int> ans;
+    while(pq.size()>0){
+        index2* temp=new index2(pq.top()->data,pq.top()->row,pq.top()->col);
+        pq.pop();
+        ans.push_back(temp->data);
+        if(temp->col < arr[temp->row].size()-1){
+            index2* temp2=new index2(arr[temp->row][temp->col+1],temp->row,temp->col+1);
+            pq.push(temp2);
+        }
+
+    }
+    return ans;
+}
 
 
 
