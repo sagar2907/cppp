@@ -2690,6 +2690,7 @@ bool CBT(BT* root,int n){
     queue<BT*> q;
     q.push(root);
     int i=0;
+    int count=1;
     while(!q.empty()){
         BT* temp=q.front();
         q.pop();
@@ -2697,15 +2698,21 @@ bool CBT(BT* root,int n){
             i++;
             q.push(temp->left);
             q.push(temp->right);
-        }
-        else if(temp->left!=NULL && temp->right==NULL){
-            i++;
+            count+=2;
             if(i==n/2){
                 return 1;
             }
         }
+        else if(temp->left!=NULL && temp->right==NULL){
+            i++;
+            if(i==n/2 && count==n-1){
+                return 1;
+            }
+            break;
+        }
         else return 0;
     }
+    return 0;
 }
 
 int main(){
