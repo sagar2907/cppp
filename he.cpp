@@ -2748,14 +2748,21 @@ class index2{
         this->col=col;
     }
 };
-class nodecompare{
+class comparemin{
     public:
     bool operator()(index2* a,index2* b){
         return a->data > b->data;
     }
 };
+class comparemax{
+    public:
+    bool operator()(index2* a,index2* b){
+        return a->data < b->data;
+
+    }
+};
 vector<int> mergeKSortedArr(vector<vector<int>> arr,int k){
-    priority_queue<index2*, vector<index2*>,nodecompare> pq;
+    priority_queue<index2*, vector<index2*>,comparemin> pq;
     for(int i=0;i<k;i++){
         index2* temp=new index2(arr[i][0],i,0);
         pq.push(temp);
@@ -2773,6 +2780,41 @@ vector<int> mergeKSortedArr(vector<vector<int>> arr,int k){
     }
     return ans;
 }
+vector<int> smallestRange(vector<vector<int>>& arr) {
+        int n=arr.size();
+        priority_queue<index2*,vector<index2*>,comparemin> qp;
+        priority_queue<index2*,vector<index2*>,comparemax> pq;
+        for(int i=0;i<n;i++){
+            index2* temp=new index2(arr[i][0],i,0);
+            qp.push(temp);
+            pq.push(temp);
+        }
+        vector<int> range;
+        range.push_back(qp.top()->data);
+        range.push_back(pq.top()->data);
+        int diff=range[1]-range[0];
+        while(true){
+        index2* temp=new index2(qp.top()->data,qp.top()->row,qp.top()->col);
+        qp.pop();
+        if(temp->col + 1 == arr[temp->row].size()){
+            break;
+        }
+        else{
+            index2* temp2=new index2(arr[temp->row][temp->col+1],temp->row,temp->col+1);
+            qp.push(temp2);
+            pq.push(temp2);
+            if((pq.top()->data - qp.top()->data) < diff){
+                range.clear();
+                range.push_back(qp.top()->data);
+                range.push_back(pq.top()->data);
+                diff=range[1]-range[0];
+            }
+        }
+        }
+        return range;
+
+    }
+
 
 
 
