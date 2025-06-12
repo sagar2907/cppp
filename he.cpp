@@ -1356,6 +1356,108 @@ int atoi(string s){
         }
         return ans*pos;
 }
+string intToRoman(int num) {
+    //brute force bc
+    stack<int> st;
+    string ans;
+
+    while(num > 0){
+        int i = num % 10;
+        num = num / 10;
+        st.push(i);
+    }
+
+    int j = st.size();
+
+    for(int k = 0; k < j; k++){
+        int s = pow(10, j - 1);
+
+        if(s == 1000){
+            for(int t = 0; t < st.top(); t++){
+                ans.push_back('M');
+            }
+            st.pop();
+            j--;
+            continue;
+        }
+
+        if(s == 100){
+            if(st.top() == 9){
+                ans.push_back('C');
+                ans.push_back('M');
+            } else if(st.top() == 4){
+                ans.push_back('C');
+                ans.push_back('D');
+            } else {
+                if(st.top() >= 5){
+                    ans.push_back('D');
+                    for(int t = 0; t < st.top() - 5; t++){
+                        ans.push_back('C');
+                    }
+                } else {
+                    for(int t = 0; t < st.top(); t++){
+                        ans.push_back('C');
+                    }
+                }
+            }
+            st.pop();
+            j--;
+            continue;
+        }
+
+        if(s == 10){
+            if(st.top() == 9){
+                ans.push_back('X');
+                ans.push_back('C');
+            } else if(st.top() == 4){
+                ans.push_back('X');
+                ans.push_back('L');
+            } else {
+                if(st.top() >= 5){
+                    ans.push_back('L');
+                    for(int t = 0; t < st.top() - 5; t++){
+                        ans.push_back('X');
+                    }
+                } else {
+                    for(int t = 0; t < st.top(); t++){
+                        ans.push_back('X');
+                    }
+                }
+            }
+            st.pop();
+            j--;
+            continue;
+        }
+
+        if(s == 1){
+            if(st.top() == 9){
+                ans.push_back('I');
+                ans.push_back('X');
+            } else if(st.top() == 4){
+                ans.push_back('I');
+                ans.push_back('V');
+            } else {
+                if(st.top() >= 5){
+                    ans.push_back('V');
+                    for(int t = 0; t < st.top() - 5; t++){
+                        ans.push_back('I');
+                    }
+                } else {
+                    for(int t = 0; t < st.top(); t++){
+                        ans.push_back('I');
+                    }
+                }
+            }
+            st.pop();
+            j--;
+            continue;
+        }
+
+     
+    }
+
+    return ans;
+}
 int findpivot(vector<int> arr){
     //1,2,3,4
     //4,3,2,1
@@ -2820,11 +2922,7 @@ vector<int> smallestRange(vector<vector<int>>& arr) {
 
 int main(){
     // 1 2 -1 -1 3 -1 -1
-   BT* root=binarytree(root);
-   int count=0;
-   numnodes(root,count);
-   int n=count-1;
-   cout<< "1 for cbt and 0 for not cbt: "<<CBT(root,n);
+   cout<<intToRoman(3234);
 
 
 }
