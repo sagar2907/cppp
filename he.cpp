@@ -359,7 +359,7 @@ int bubblesort(int arr[], int n){
         }
     }
 }
-int insertionsort(int arr[], int n) {  
+void insertionsort(int* arr, int n) {  
     for (int i = 1; i < n; i++) {
         int temp = arr[i];
         int j = i - 1;
@@ -367,9 +367,9 @@ int insertionsort(int arr[], int n) {
             arr[j + 1] = arr[j];
             j--;
         }
-        arr[j + 1] = temp;
+        arr[j+1] = temp;
     }
-    return 0;
+    return;
 }
 int digsum(vector<int> arr){
     for(int i = 0; i<arr.size();i++){
@@ -2916,13 +2916,41 @@ vector<int> smallestRange(vector<vector<int>>& arr) {
         return range;
 
     }
+class medianinstream{
+    private:
+    priority_queue<int,vector<int>,greater<int>> qp;
+    priority_queue<int> pq;
+    medianinstream(){
+    }
 
+    void insert(int num){
+        pq.push(num);
+        qp.push(pq.top());
+        pq.pop();
 
+        if(pq.size()<qp.size()){
+            pq.push(qp.top());
+            qp.pop();
+        }
+    }
+
+    int median(){
+        if((pq.size() + qp.size())%2 == 0)
+        return (pq.top()+qp.top())/2;
+        else
+        return pq.top();
+    }
+};
 
 
 int main(){
     // 1 2 -1 -1 3 -1 -1
-   cout<<intToRoman(3234);
+   
+   int arr[5]={5,4,3,2,1};
+   insertionsort(arr,5);
+   for(int i=0;i<5;i++){
+    cout<<arr[i]<<" ";
+   }
 
 
 }
